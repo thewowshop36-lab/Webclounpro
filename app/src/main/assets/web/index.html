@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f19" />
+  <title>Denvork Portal - Work & Earn Online</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+    <aside class="desktop-sidebar">
+      <div class="brand-section" onclick="switchTab('dashboard')" style="margin-bottom: 28px;">
+        <div class="brand-logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <span class="brand-title">DENVORK</span>
+          <span class="portal-badge">PORTAL</span>
+        </div>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
+        <button class="btn btn-secondary nav-btn-desktop" onclick="switchTab('dashboard')">📊 Dashboard</button>
+        <button class="btn btn-secondary nav-btn-desktop" onclick="switchTab('work')">🎯 Work & Tasks</button>
+        <button class="btn btn-secondary nav-btn-desktop" onclick="switchTab('referrals')">👥 Affiliate Network</button>
+        <button class="btn btn-secondary nav-btn-desktop" onclick="switchTab('wallet')">💳 Wallet & Payout</button>
+        <button class="btn btn-secondary nav-btn-desktop" onclick="switchTab('profile')">👤 Profile & KYC</button>
+      </nav>
+      <div style="font-size: 0.72rem; color: var(--text-muted); text-align: center; border-top: 1px solid var(--border-color); padding-top: 14px;">
+        Denvork Cloud Portal • Vercel Ready<br/>Ref ID: <strong>Njk4MDc4</strong>
+      </div>
+    </aside>
+
+    <div class="main-content-wrapper">
+      <header class="top-header">
+        <div class="brand-section" onclick="switchTab('dashboard')">
+          <div class="brand-logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <span class="brand-title">DENVORK</span>
+            <span class="portal-badge">PORTAL</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="currency-toggle">
+            <div class="currency-opt active" data-curr="PKR" onclick="setCurrency('PKR')">PKR</div>
+            <div class="currency-opt" data-curr="USD" onclick="setCurrency('USD')">USD</div>
+          </div>
+          <div class="user-quick-btn" onclick="switchTab('profile')">
+            <div class="user-avatar-sm" id="headerUserAvatar">R</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="live-ticker-bar">
+        <div class="ticker-label">
+          <div class="ticker-pulse"></div>
+          <span>LIVE EARNINGS</span>
+        </div>
+        <div class="ticker-track">
+          🎉 Fast JazzCash & Easypaisa 0% fee withdrawals active • High-reward YouTube & Social tasks replenished daily • Invite friends via ref_id=Njk4MDc4 to earn 15% recurring commissions!
+        </div>
+      </div>
+
+      <main class="page-container" id="viewContent"></main>
+    </div>
+  </div>
+
+  <nav class="mobile-nav">
+    <div class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+      <span class="nav-icon">📊</span>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item" data-tab="work" onclick="switchTab('work')">
+      <span class="nav-badge">12</span>
+      <span class="nav-icon">🎯</span>
+      <span class="nav-label">Work</span>
+    </div>
+    <div class="nav-item" data-tab="referrals" onclick="switchTab('referrals')">
+      <span class="nav-icon">👥</span>
+      <span class="nav-label">Referrals</span>
+    </div>
+    <div class="nav-item" data-tab="wallet" onclick="switchTab('wallet')">
+      <span class="nav-icon">💳</span>
+      <span class="nav-label">Wallet</span>
+    </div>
+    <div class="nav-item" data-tab="profile" onclick="switchTab('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </div>
+  </nav>
+
+  <div class="modal-overlay" id="taskRunnerModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="taskModalTitle" style="font-size: 1rem;">Task Viewer</h3>
+        <button class="close-btn" onclick="closeModal('taskRunnerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #000; border-radius: var(--radius-md); height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color);">
+          <div style="font-size: 2.5rem; color: #ef4444; margin-bottom: 8px;">▶️</div>
+          <div style="font-size: 0.85rem; color: #aaa;">Playing Sponsor Media...</div>
+          <div style="position: absolute; bottom: 8px; left: 12px; font-size: 0.72rem; color: var(--emerald-light); font-weight: 700;">
+            Anti-Fraud Verification: Active
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.85rem; color: var(--text-secondary);">Watch Required:</span>
+          <strong id="taskTimerDisplay" style="color: var(--amber-gold); font-size: 1.1rem;">30s</strong>
+        </div>
+        <div style="background: rgba(255,255,255,0.08); border-radius: 10px; height: 8px; overflow: hidden; margin-bottom: 16px;">
+          <div id="taskProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #06b6d4);"></div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary btn-sm" onclick="fastForwardTask()" style="flex: 1;">⚡ Fast Forward</button>
+          <button class="btn btn-secondary" id="taskCompleteBtn" disabled onclick="claimTaskReward()" style="flex: 2;">Watching...</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="announcementModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem;">📢 Official Notice Board</h3>
+        <button class="close-btn" onclick="closeModal('announcementModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary);">
+        <p style="margin-bottom: 10px;"><strong style="color: var(--emerald-light);">✓ JazzCash & Easypaisa 24/7</strong>: Instant payouts without manual delays.</p>
+        <p style="margin-bottom: 10px;"><strong style="color: var(--cyan-accent);">✓ Verified Sponsor Link</strong>: You are protected under official Denvork partner code <code style="color: #fff; background: #222; padding: 2px 6px; border-radius: 4px;">Njk4MDc4</code>.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-sm" onclick="closeModal('announcementModal')">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -34,6 +34,9 @@ import androidx.compose.material.icons.outlined.Dashboard
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayCircleOutline
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -56,6 +59,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -73,6 +77,7 @@ import com.example.ui.screens.ProfileScreen
 import com.example.ui.screens.ReferralsScreen
 import com.example.ui.screens.TaskWatchingDialog
 import com.example.ui.screens.WalletScreen
+import com.example.ui.screens.WebPortalScreen
 import com.example.ui.screens.WorkTasksScreen
 import com.example.ui.theme.CyanAccent
 import com.example.ui.theme.DenvorkBackground
@@ -114,6 +119,7 @@ fun DenvorkApp(viewModel: DenvorkViewModel) {
     val currentUser by viewModel.currentUser.collectAsState()
     val activeTask by viewModel.activeTask.collectAsState()
     var selectedTab by remember { mutableIntStateOf(0) }
+    var showWebPortal by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
@@ -184,6 +190,17 @@ fun DenvorkApp(viewModel: DenvorkViewModel) {
                             }
                         },
                         actions = {
+                            IconButton(
+                                onClick = { showWebPortal = !showWebPortal },
+                                modifier = Modifier.testTag("toggle_web_portal_btn")
+                            ) {
+                                Icon(
+                                    imageVector = if (showWebPortal) Icons.Filled.Dashboard else Icons.Outlined.Language,
+                                    contentDescription = if (showWebPortal) "Show Native App" else "Show Vercel Web Portal",
+                                    tint = if (showWebPortal) CyanAccent else EmeraldLight
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(4.dp))
                             // Balance tag pill
                             Box(
                                 modifier = Modifier
@@ -250,16 +267,20 @@ fun DenvorkApp(viewModel: DenvorkViewModel) {
                 containerColor = DenvorkBackground
             ) { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {
-                    when (selectedTab) {
-                        0 -> DashboardScreen(
-                            viewModel = viewModel,
-                            user = user,
-                            onNavigateTab = { selectedTab = it }
-                        )
-                        1 -> WorkTasksScreen(viewModel = viewModel)
-                        2 -> ReferralsScreen(viewModel = viewModel, user = user)
-                        3 -> WalletScreen(viewModel = viewModel, user = user)
-                        4 -> ProfileScreen(viewModel = viewModel, user = user)
+                    if (showWebPortal) {
+                        WebPortalScreen(onClose = { showWebPortal = false })
+                    } else {
+                        when (selectedTab) {
+                            0 -> DashboardScreen(
+                                viewModel = viewModel,
+                                user = user,
+                                onNavigateTab = { selectedTab = it }
+                            )
+                            1 -> WorkTasksScreen(viewModel = viewModel)
+                            2 -> ReferralsScreen(viewModel = viewModel, user = user)
+                            3 -> WalletScreen(viewModel = viewModel, user = user)
+                            4 -> ProfileScreen(viewModel = viewModel, user = user)
+                        }
                     }
                 }
             }
@@ -312,16 +333,20 @@ fun DenvorkApp(viewModel: DenvorkViewModel) {
                 }
 
                 Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                    when (selectedTab) {
-                        0 -> DashboardScreen(
-                            viewModel = viewModel,
-                            user = user,
-                            onNavigateTab = { selectedTab = it }
-                        )
-                        1 -> WorkTasksScreen(viewModel = viewModel)
-                        2 -> ReferralsScreen(viewModel = viewModel, user = user)
-                        3 -> WalletScreen(viewModel = viewModel, user = user)
-                        4 -> ProfileScreen(viewModel = viewModel, user = user)
+                    if (showWebPortal) {
+                        WebPortalScreen(onClose = { showWebPortal = false })
+                    } else {
+                        when (selectedTab) {
+                            0 -> DashboardScreen(
+                                viewModel = viewModel,
+                                user = user,
+                                onNavigateTab = { selectedTab = it }
+                            )
+                            1 -> WorkTasksScreen(viewModel = viewModel)
+                            2 -> ReferralsScreen(viewModel = viewModel, user = user)
+                            3 -> WalletScreen(viewModel = viewModel, user = user)
+                            4 -> ProfileScreen(viewModel = viewModel, user = user)
+                        }
                     }
                 }
             }
