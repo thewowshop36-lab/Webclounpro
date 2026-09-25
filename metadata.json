@@ -1,0 +1,6 @@
+{
+  "name": "Denvork",
+  "description": "Denvork Work & Earning Portal with user dashboard, authentication, secure database, tasks, and profile management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
